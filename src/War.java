@@ -1,5 +1,3 @@
-//Note to self: When WAR happens and there aren't enough cards to put down, the code breaks.
-
 public class War {
 	
 	static int rounds = 0;
