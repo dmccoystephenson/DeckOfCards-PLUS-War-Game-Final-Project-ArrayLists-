@@ -7,7 +7,7 @@ A deck of cards built on `ArrayList`s, plus a console simulation of the card gam
 ## Technology stack
 
 - Java, six plain source files in the default package under `src/`, using only `java.util`.
-- No build tool (no Maven, Gradle or Ant file), no dependencies, no README and no CI workflow.
+- No build tool (no Maven, Gradle or Ant file), no dependencies, no README. CI (`.github/workflows/test.yml`, job `test`) runs on every PR and push to the default branch.
 - Verified to compile and run with `javac`/`java` 17.
 
 ## Build and run commands
@@ -25,7 +25,7 @@ java -cp out Driver
 
 ## Test commands
 
-There are no tests and no CI. To check a change, compile with `javac -d out src/*.java` and run `java -cp out War` several times (the game is random), confirming that it terminates and prints `Rounds:`, `Wars:` and a winner line.
+There are no unit tests. CI (`.github/workflows/test.yml`, job `test`) runs on every PR and push to the default branch: it compiles on Temurin 17, plays `War` 25 times (each must exit 0 within 30s and print `Rounds:`, `Wars:` and a winner line) and runs `Driver`. To check a change locally, compile with `javac -d out src/*.java` and run `java -cp out War` several times (the game is random), confirming that it terminates and prints `Rounds:`, `Wars:` and a winner line.
 
 ## Repository layout
 
