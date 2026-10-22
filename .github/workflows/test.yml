@@ -1,0 +1,39 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Compile
+        run: javac -d out src/*.java
+
+      # The game is random, so play it many times. Each game must finish
+      # within 30 s, exit 0 and print the round/war counts and a winner.
+      - name: Play War 25 times
+        run: |
+          for i in $(seq 1 25); do
+            out=$(timeout 30 java -cp out War) || { echo "game $i failed or did not terminate (exit $?)"; exit 1; }
+            for want in 'Rounds: [0-9]+' 'Wars: [0-9]+' 'Player (One|Two) Won!'; do
+              echo "$out" | grep -Eq "$want" || { echo "game $i: missing '$want'"; echo "$out"; exit 1; }
+            done
+            echo "game $i: $(echo "$out" | grep -E 'Rounds|Wars|Won' | tr '\n' ' ')"
+          done
+
+      - name: Run Driver
+        run: timeout 30 java -cp out Driver
