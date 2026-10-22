@@ -1,0 +1,11 @@
+# Compiled classes (CLAUDE.md: javac -d out src/*.java)
+out/
+*.class
+
+# IDE metadata
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
