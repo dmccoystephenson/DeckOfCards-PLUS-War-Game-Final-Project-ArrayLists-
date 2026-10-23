@@ -15,8 +15,6 @@ public class DeckOfCards {
 		}
 	}
 	
-	String[] cardType = {"Spades", "Hearts", "Clubs", "Diamonds"};
-
 	public void printOriginalDeck() {
 		for (int q = 0; q < originalDeck.size(); q++) {
 			System.out.println(originalDeck.get(q).title);
